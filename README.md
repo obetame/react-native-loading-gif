@@ -32,9 +32,8 @@ The loader has many uses way and API:
 | BtnStyle | none | object(style) | close button style |
 | bgAnimate | default | boolean | "default" or "opacity" |
 | fadeWay | up | string | pop-up position |
-```
 
-Api:
+**API:**
 
 1. `OpenLoad()`:Open LoadBox.
 2. `CloseLoad()`:Close LoadBox.
