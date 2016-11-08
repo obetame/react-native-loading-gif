@@ -8,13 +8,11 @@ import {
 	PixelRatio,
 	Platform,
 	Animated,
+	Dimensions
 } from 'react-native';
-const InteractionManager = require('InteractionManager');
-const Dimensions = require('Dimensions');
-
-export const Width = Dimensions.get('window').width;
-export const Height = Dimensions.get("window").height;
-export const Scale = PixelRatio.get();//返回设备的像素密度
+const Width = Dimensions.get('window').width;
+const Height = Dimensions.get("window").height;
+const Scale = PixelRatio.get();//返回设备的像素密度
 const LoadImage = [
 	require("./gif/load1.gif"),
 	require("./gif/Load2.gif"),
