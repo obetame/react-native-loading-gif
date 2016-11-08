@@ -74,6 +74,35 @@ _onPress(){
 }
 ```
 
+## GIF and WebP support on Android
+
+> By default, GIF and WebP are not supported on Android. You will need to add some optional modules in android/app/build.gradle, depending on the needs of your app.
+
+```java
+dependencies {
+  // If your app supports Android versions before Ice Cream Sandwich (API level 14)
+  compile 'com.facebook.fresco:animated-base-support:0.11.0'
+
+  // For animated GIF support
+  compile 'com.facebook.fresco:animated-gif:0.11.0'
+
+  // For WebP support, including animated WebP
+  compile 'com.facebook.fresco:animated-webp:0.11.0'
+  compile 'com.facebook.fresco:webpsupport:0.11.0'
+
+  // For WebP support, without animations
+  compile 'com.facebook.fresco:webpsupport:0.11.0'
+}
+```
+
+Also, if you use GIF with ProGuard, you will need to add this rule in proguard-rules.pro :
+
+```java
+-keep class com.facebook.imagepipeline.animated.factory.AnimatedFactoryImpl {
+  public AnimatedFactoryImpl(com.facebook.imagepipeline.bitmaps.PlatformBitmapFactory, com.facebook.imagepipeline.core.ExecutorSupplier);
+}
+```
+
 ## Example
 
 1. step 1
