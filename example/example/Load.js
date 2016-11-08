@@ -58,6 +58,7 @@ class Load extends Component{
 			zIndex:-10,
 			fadeAnim:new Animated.Value(0),//默认从0开始
 			children:false,//默认没有子元素
+			settime:null,//时间定时器
 		}
 	}
 	render() {
@@ -92,6 +93,7 @@ class Load extends Component{
 					}
 				]}}>
 					{React.cloneElement(this.props.children)}
+					{this._showButton()}
 				</Animated.View>
 			)
 		}
@@ -152,6 +154,7 @@ class Load extends Component{
 		this.CloseLoad();
 	}
 	CloseLoad(Animate=this.props.bgAnimate){
+		clearTimeout(this.state.settime);
 		switch(Animate){
 			case "default":
 				this._DefaultAnimate("close");
@@ -177,7 +180,7 @@ class Load extends Component{
 	}
 	setTimeClose(time=2000){
 		this.OpenLoad();
-		setTimeout(()=>{
+		this.state.settime = setTimeout(()=>{
 			this.CloseLoad();
 		},time)
 	}
@@ -298,9 +301,9 @@ const styles = StyleSheet.create({
 		top:5,
 		right:5,
 		backgroundColor:"#3ca7f4",
-		borderRadius:10,
-		width:20,
-		height:20,
+		borderRadius:12,
+		width:26,
+		height:26,
 		borderWidth:2,
 		borderColor:"#fff",
 		justifyContent:"center",

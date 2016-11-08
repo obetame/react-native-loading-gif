@@ -12,7 +12,7 @@ npm install react-native-loading --save
 
 ## Use
 
-```html
+```jsx
 import Load from "react-native-loading";
 
 <Load ref="Load"></Load>
@@ -20,104 +20,59 @@ import Load from "react-native-loading";
 
 ## Document
 
-Animation has been defined:
+The loader has many uses way and API:
 
-1. `AnimationScaleInRight`
-2. `AnimationScaleInRightDown`
-3. `AnimationScaleInRightUp`
-4. `AnimationRotateInLeft`
-5. `SwitchMain`(switch tab no animation)
-
-Custom animation API:
-
-5. `CustomAnimation("actionIn","actionOut",[gesture Object])`
-
-Optional value of the first parameter:
-
-```js
-// In was parameter "actionIn"
-// Out was parameter "actionOut"
-
-//{first parameter ,Second parameter}
-{UpLeftIn,UpLeftOut},
-{UpRightIn,UpRightOut},
-{DownLeftIn,DownLeftOut},
-{DownRightIn,DownRightOut},
-{RightIn,RightOut},
-{LeftIn,LeftOut},
-{RotateRightIn,RotateLeftOut},
-{RotateRightinUp,RotateLeftoutUp},
-{RotateiInY,RotateOutY},
-{RotateInX,RotateOutX},
-{CenterScaleIn,CenterScaleOut}
+| prop | default | type | description |
+| ---- | ---- | ----| ---- |
+| opacity | 0.6 | number | Background transparency |
+| bgColor | #000000 | string | background color |
+| isShow | false | boolean | Whether to display immediately |
+| Image | 0 | number | GIF number,a total of six,0~5 |
+| showBtn | false | boolean | Whether to display the close button |
+| BtnStyle | none | object(style) | close button style |
+| bgAnimate | default | boolean | "default" or "opacity" |
+| fadeWay | up | string | pop-up position |
 ```
 
-You can use it like this:
+Api:
 
-```js
-CustomAnimation("UpLeftIn","UpLeftOut");
-// Or mix
-CustomAnimation("UpRightIn","UpLeftOut");
-```
+1. `OpenLoad()`:Open LoadBox.
+2. `CloseLoad()`:Close LoadBox.
+3. `setTimeClose()`:Display the set time, and then automatically hide,default value is 2000.
 
-The third parameter is gesture:
+Like this:
 
-```js
-{
-  pop:{
-    ...BaseLeftToRightGesture,
-    direction:"left-to-right",
-    fullDistance:Width
-  },
-  jumpForward:null,
-  jumpBack:null,
-  jumpTo:null
+```jsx
+render(){
+  return (
+    <View>
+      <YourComponent />
+      <Load ref="Load"></Load>
+    <View>
+  )
+}
+componentDidMount(){
+  this.refs.Load.setTimeClose();//default 2000
+  // his.refs.Load.setTimeClose(3000);
 }
 ```
 
-The `BaseLeftToRightGesture` Default value:
+Or this:
 
-```js
-const BaseLeftToRightGesture = {
-  // If the gesture can end and restart during one continuous touch
-  isDetachable: false,
-
-  // How far the swipe must drag to start transitioning
-  gestureDetectMovement: 2,
-
-  // Amplitude of release velocity that is considered still
-  notMoving: 0.3,
-
-  // Fraction of directional move required.
-  directionRatio: 0.66,
-
-  // Velocity to transition with when the gesture release was "not moving"
-  snapVelocity: 2,
-
-  // Region that can trigger swipe. iOS default is 30px from the left edge
-  edgeHitWidth: 30,
-
-  // Ratio of gesture completion when non-velocity release will cause action
-  stillCompletionRatio: 3 / 5,
-
-  fullDistance: Width,
-  direction: 'left-to-right',
-};
-```
-
-You can use like this:
-
-```js
-import AnimationInit from "react-native-navigator-animation";
-let buildStyleInterpolator = require('buildStyleInterpolator');
-let NavAnimate = AnimationInit(buildStyleInterpolator);
-
-NavAnimate.CustomAnimation("rightin","leftout",{
-  ...BaseLeftToRightGesture,
-  jumpTo:{
-    // write you gesture
-  }
-})
+```jsx
+render(){
+  return (
+    <View>
+      <TouchableOpacity onPress={()=>{this._onPress()}}>
+        <Text>click</Text>
+      </TouchableOpacity>
+      <Load showBtn={true} ref="Load"></Load>
+    <View>
+  )
+}
+_onPress(){
+  this.refs.Load.OpenLoad();
+}
 ```
 
 ## Example

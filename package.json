@@ -1,6 +1,6 @@
 {
   "name": "react-native-loading",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Support for custom pop-up effects and GIF",
   "main": "Load.js",
   "scripts": {

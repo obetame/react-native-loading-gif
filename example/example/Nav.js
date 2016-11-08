@@ -6,7 +6,8 @@ import {
 	Image,
 	Navigator,
 	PixelRatio,
-	TouchableOpacity
+	TouchableOpacity,
+	Alert
 } from 'react-native';
 import Load from "./Load";
 
@@ -47,20 +48,33 @@ class Nav extends Component{
 				</TouchableOpacity>
 				<TouchableOpacity
 					activeOpacity={0.9}
-					onPress={()=>{this.confirm()}}
+					onPress={()=>{this.Comfirm()}}
 					style={styles.btn}>
-					<Text style={styles.text}>confirm</Text>
+					<Text style={styles.text}>Comfirm</Text>
 				</TouchableOpacity>
+				<TouchableOpacity
+					activeOpacity={0.9}
+					onPress={()=>{this._onPress(5)}}
+					style={styles.btn}>
+					<Text style={styles.text}>Select GIF</Text>
+				</TouchableOpacity>
+				{this._renderLoad()}
 				<Load 
 					isShow={isShow} 
 					opacity={opacity} 
 					bgColor={bgColor} 
 					Image={Image} 
-					showBtn={showBtn} 
-					BtnStyle={BtnStyle} 
+					showBtn={true} 
+					BtnStyle={{width:26,height:26,borderRadius:12}} 
 					bgAnimate={bgAnimate} 
 					fadeWay={fadeWay} 
-					ref="Load">
+					ref="LoadToast">
+					<View style={styles.Loadbody}>
+						<Text style={styles.tip}>提示</Text>
+						<View style={styles.btns}>
+							<Text style={styles.toasttext}>This is a Toast!</Text>
+						</View>
+					</View>
 				</Load>
 				<Load 
 					isShow={isShow} 
@@ -71,17 +85,19 @@ class Nav extends Component{
 					BtnStyle={BtnStyle} 
 					bgAnimate={bgAnimate} 
 					fadeWay={fadeWay} 
-					ref="LoadToast">
+					ref="LoadComfirm">
 					<View style={styles.Loadbody}>
 						<Text style={styles.tip}>提示</Text>
 						<View style={styles.btns}>
 							<TouchableOpacity
 								activeOpacity={0.9}
+								onPress={()=>{this._LoadComfirm("no")}}
 								style={styles.btnleft}>
 								<Text style={styles.btntext}>取消</Text>
 							</TouchableOpacity>
 							<TouchableOpacity
 								activeOpacity={0.9}
+								onPress={()=>{this._LoadComfirm("yes")}}
 								style={styles.btnright}>
 								<Text style={styles.btntext}>确定</Text>
 							</TouchableOpacity>
@@ -93,55 +109,34 @@ class Nav extends Component{
 	}
 	_renderLoad(){
 		const {isShow,opacity,bgColor,Image,showBtn,BtnStyle,bgAnimate,fadeWay,childen} = this.props;
-		if(childen){
-			// 使用你自己的gif或者其它的
-			// return (
-			// 	<Load 
-			// 		isShow={isShow} 
-			// 		opacity={opacity} 
-			// 		bgColor={bgColor} 
-			// 		Image={Image} 
-			// 		showBtn={showBtn} 
-			// 		BtnStyle={BtnStyle} 
-			// 		bgAnimate={bgAnimate} 
-			// 		fadeWay={fadeWay} 
-			// 		ref="Load">
-			// 		<View style={styles.Loadbody}>
-			// 			<Text style={styles.tip}>提示</Text>
-			// 			<View style={styles.btns}>
-			// 				<TouchableOpacity
-			// 					activeOpacity={0.9}
-			// 					style={styles.btnleft}>
-			// 					<Text style={styles.btntext}>取消</Text>
-			// 				</TouchableOpacity>
-			// 				<TouchableOpacity
-			// 					activeOpacity={0.9}
-			// 					style={styles.btnright}>
-			// 					<Text style={styles.btntext}>确定</Text>
-			// 				</TouchableOpacity>
-			// 			</View>
-			// 		</View>
-			// 	</Load>
-			// )
-		}
-		else{
-			// return (
-			// 	<Load 
-			// 		isShow={isShow} 
-			// 		opacity={opacity} 
-			// 		bgColor={bgColor} 
-			// 		Image={Image} 
-			// 		showBtn={showBtn} 
-			// 		BtnStyle={BtnStyle} 
-			// 		bgAnimate={bgAnimate} 
-			// 		fadeWay={fadeWay} 
-			// 		ref="Load">
-			// 	</Load>
-			// )
-		}
+		return (
+			<Load 
+				isShow={isShow} 
+				opacity={opacity} 
+				bgColor={bgColor} 
+				Image={Image} 
+				showBtn={showBtn} 
+				BtnStyle={BtnStyle} 
+				bgAnimate={bgAnimate} 
+				fadeWay={fadeWay} 
+				ref="Load">
+			</Load>
+		)
 	}
 	Toast(){
-		this.refs.LoadToast.OpenLoad();
+		this.refs.LoadToast.setTimeClose();
+	}
+	Comfirm(){
+		this.refs.LoadComfirm.OpenLoad();
+	}
+	_LoadComfirm(message){
+		if(message==="no"){
+			Alert.alert("Comfirm","you click No");
+		}
+		else{
+			Alert.alert("Comfirm","you click Yes");
+		}
+		this.refs.LoadComfirm.CloseLoad();
 	}
 	_onPress(index){
 		const {navigator} = this.props;
@@ -171,19 +166,16 @@ class Nav extends Component{
 		}
 		if(index===5){
 			navigator.push({
-				name:"Nav",component:Nav,index:5,params:{bgColor:"#FFA500",childen:true}
+				name:"Nav",component:Nav,index:5,params:{bgColor:"#CD0000",bgAnimate:"default",Image:1}
 			});
 			return;
 		}
 	}
 	componentDidMount(){
-		// this.refs.Load.setTimeClose();
+		this.refs.Load.setTimeClose();
 		// setTimeout(()=>{
 			// this.refs.Load.OpenLoad();
 		// },2000)
-		if(this.props.childen){
-			this.refs.Load.OpenLoad();
-		}
 	}
 }
 
@@ -249,6 +241,10 @@ const styles = StyleSheet.create({
 		justifyContent:"center",
 	},
 	btntext:{
+		color:"#000",
+		fontSize:16
+	},
+	toasttext:{
 		color:"#000",
 		fontSize:16
 	}
