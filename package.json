@@ -1,0 +1,25 @@
+{
+  "name": "react-native-loading",
+  "version": "1.0.0",
+  "description": "Support for custom pop-up effects and GIF",
+  "main": "Load.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://zhouyuexie@github.com/zhouyuexie/react-native-loading.git"
+  },
+  "keywords": [
+    "react-native",
+    "loading",
+    "load",
+    "gif"
+  ],
+  "author": "zhouyuexie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhouyuexie/react-native-loading/issues"
+  },
+  "homepage": "https://github.com/zhouyuexie/react-native-loading#readme"
+}
