@@ -1,19 +1,19 @@
-# react-native-loading
+# react-native-loading-gif
 
 Support for custom pop-up effects and GIF.
 
-![](https://github.com/zhouyuexie/react-native-loading/blob/master/animation.gif)
+![](https://github.com/zhouyuexie/react-native-loading-gif/blob/master/animation.gif)
 
 ## Install
 
 ```shell
-npm install react-native-loading --save
+npm install react-native-loading-gif --save
 ```
 
 ## Use
 
 ```jsx
-import Load from "react-native-loading";
+import Load from "react-native-loading-gif";
 
 <Load ref="Load"></Load>
 ```
